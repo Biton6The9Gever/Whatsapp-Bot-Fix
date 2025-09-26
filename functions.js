@@ -2324,26 +2324,6 @@ function renumberMenuOptions(menuOptions) {
         return menuOptions; // Return original if error occurs
     }
 }
-async function isInGroup(client, userId) {
-    try {
-        const chats = await client.getChats();
-        const groups = chats.filter(chat => chat.isGroup);
-
-        for (const group of groups) {
-            if (group.participants.some(p => p.id._serialized === userId)) {
-                return {
-                    inGroup: true,
-                    groupId: group.id._serialized,
-                    groupName: group.name
-                };
-            }
-        }
-        return { inGroup: false };
-    } catch (err) {
-        console.error("Error in isInGroup:", err.message);
-        return { inGroup: false, error: err.message };
-    }
-}
 module.exports = {
     isMessageBeingProcessed,
     isUserOnCooldown,
@@ -2398,7 +2378,6 @@ module.exports = {
     addFAQOption,
     isValidGroup,
     performHealthCheck,
-    renumberMenuOptions,
-    isInGroup
+    renumberMenuOptions
 };
 
